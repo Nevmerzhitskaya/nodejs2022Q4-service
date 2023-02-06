@@ -1,11 +1,12 @@
 import DBEntity from './DBEntity';
 
 export type AlbumEntity = {
-  id: string;
-  discount: number;
-  monthPostsLimit: number;
+  id: string; // uuid v4
+  name: string;
+  year: number;
+  artistId: string | null; // ref
 };
-type CreateAlbumDTO = AlbumEntity;
+type CreateAlbumDTO = Omit<AlbumEntity, 'id'>;
 type ChangeAlbumDTO = Partial<Omit<AlbumEntity, 'id'>>;
 
 export default class DBAlbums extends DBEntity<
@@ -13,35 +14,10 @@ AlbumEntity,
   ChangeAlbumDTO,
   CreateAlbumDTO
 > {
-  constructor() {
-    super();
-
-    this.create({
-      id: 'basic',
-      discount: 0,
-      monthPostsLimit: 20,
-    });
-    this.create({
-      id: 'business',
-      discount: 5,
-      monthPostsLimit: 100,
-    });
-
-    const forbidOperationTrap: ProxyHandler<any> = {
-      apply(target) {
-        throw new Error(
-          `forbidden operation: cannot ${target.name} a member type`
-        );
-      },
-    };
-
-    this.delete = new Proxy(this.delete, forbidOperationTrap);
-    this.create = new Proxy(this.create, forbidOperationTrap);
-  }
-
   async create(dto: CreateAlbumDTO) {
     const created: AlbumEntity = {
       ...dto,
+      id: crypto.randomUUID(),
     };
     this.entities.push(created);
     return created;

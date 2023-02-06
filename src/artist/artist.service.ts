@@ -42,6 +42,6 @@ export class ArtistService {
       throw new HttpException("User doesn't exist", HttpStatus.NOT_FOUND);
     }
     
-    return await this.bdService.getDB().artist.delete(id);;
+    return await this.bdService.getDB().artist.delete(id);
   }
 }
