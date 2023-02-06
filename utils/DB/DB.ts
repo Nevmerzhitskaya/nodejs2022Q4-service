@@ -4,11 +4,12 @@
 import DBUsers from './entities/DBUsers';
 import * as lodash from 'lodash';
 import { Injectable } from '@nestjs/common';
+import DBArtists from './entities/DBArtists';
 
 @Injectable()
 export default class DB {
   users = new DBUsers();
-  // profiles = new DBProfiles();
+  artist = new DBArtists();
   // memberTypes = new DBMemberTypes();
   // posts = new DBPosts();
 

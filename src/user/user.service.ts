@@ -37,10 +37,6 @@ export class UsersService {
   async update(id: string, UpdatePasswordDto: UpdatePasswordDto) {
     const user : UserDto = await this.bdService.getDB().users.findOne({key: "id", equals: id});
 
-    // if (UpdatePasswordDto.newPassword === '' || UpdatePasswordDto.newPassword === undefined || UpdatePasswordDto.oldPassword === '' || UpdatePasswordDto.oldPassword === undefined) {
-      
-    //   throw new HttpException("BAD REQUEST", HttpStatus.BAD_REQUEST);
-    // }
     if (!user) {
       throw new HttpException("User doesn't exist", HttpStatus.NOT_FOUND);
     }

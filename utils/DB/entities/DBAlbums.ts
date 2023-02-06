@@ -1,17 +1,17 @@
 import DBEntity from './DBEntity';
 
-export type MemberTypeEntity = {
+export type AlbumEntity = {
   id: string;
   discount: number;
   monthPostsLimit: number;
 };
-type CreateMemberTypeDTO = MemberTypeEntity;
-type ChangeMemberTypeDTO = Partial<Omit<MemberTypeEntity, 'id'>>;
+type CreateAlbumDTO = AlbumEntity;
+type ChangeAlbumDTO = Partial<Omit<AlbumEntity, 'id'>>;
 
-export default class DBMemberTypes extends DBEntity<
-  MemberTypeEntity,
-  ChangeMemberTypeDTO,
-  CreateMemberTypeDTO
+export default class DBAlbums extends DBEntity<
+AlbumEntity,
+  ChangeAlbumDTO,
+  CreateAlbumDTO
 > {
   constructor() {
     super();
@@ -39,8 +39,8 @@ export default class DBMemberTypes extends DBEntity<
     this.create = new Proxy(this.create, forbidOperationTrap);
   }
 
-  async create(dto: CreateMemberTypeDTO) {
-    const created: MemberTypeEntity = {
+  async create(dto: CreateAlbumDTO) {
+    const created: AlbumEntity = {
       ...dto,
     };
     this.entities.push(created);

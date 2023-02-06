@@ -23,7 +23,7 @@ type OptionsInArrayAnyOf<T, K extends keyof T> = Required<
 >;
 
 export default abstract class DBEntity<
-  Entity extends { id: string },
+  Entity extends { id?: string },
   ChangeDTO,
   CreateDTO
 > {
